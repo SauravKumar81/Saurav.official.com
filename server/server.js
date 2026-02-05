@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/skills', require('./routes/skillRoutes'));
 
 // Start Server
 app.listen(PORT, () => {

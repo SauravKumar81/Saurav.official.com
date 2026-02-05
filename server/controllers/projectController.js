@@ -37,7 +37,22 @@ exports.getProjectById = async (req, res) => {
 // @access  Private
 exports.createProject = async (req, res) => {
     try {
-        const newProject = new Project(req.body);
+        const projectData = req.body;
+        console.log('Create Project Body:', projectData);
+        console.log('Create Project File:', req.file);
+        
+        // Handle capabilities passed as string (multipart/form-data)
+        if (typeof projectData.technologies === 'string') {
+            projectData.technologies = projectData.technologies.split(',').map(t => t.trim());
+        }
+
+        // Handle Cloudinary Image Upload
+        if (req.file) {
+            projectData.image = req.file.path;
+            projectData.images = [req.file.path];
+        }
+
+        const newProject = new Project(projectData);
         const project = await newProject.save();
         res.json(project);
     } catch (err) {
@@ -56,7 +71,20 @@ exports.updateProject = async (req, res) => {
             return res.status(404).json({ msg: 'Project not found' });
         }
 
-        project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+        const updateData = req.body;
+
+        // Handle capabilities passed as string (multipart/form-data)
+        if (typeof updateData.technologies === 'string') {
+            updateData.technologies = updateData.technologies.split(',').map(t => t.trim());
+        }
+
+        // Handle Image Upload Update
+        if (req.file) {
+            updateData.image = req.file.path;
+            updateData.images = [req.file.path];
+        }
+
+        project = await Project.findByIdAndUpdate(req.params.id, { $set: updateData }, { new: true });
         res.json(project);
     } catch (err) {
         console.error(err.message);

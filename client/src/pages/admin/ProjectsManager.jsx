@@ -176,8 +176,45 @@ const ProjectsManager = () => {
                                 <input type="text" name="githubUrl" value={formData.githubUrl} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Image Source</label>
+                                <div className="space-y-3">
+                                    <input 
+                                        type="text" 
+                                        name="imageUrl" 
+                                        value={formData.imageUrl} 
+                                        onChange={handleInputChange} 
+                                        className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" 
+                                        placeholder="Paste Image URL..." 
+                                    />
+                                    <div className="text-center text-sm text-gray-500">- OR -</div>
+                                    <input 
+                                        type="file" 
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    setFormData(prev => ({ ...prev, imageUrl: reader.result }));
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-primary hover:file:bg-blue-100"
+                                    />
+                                </div>
+                                {formData.imageUrl && (
+                                    <div className="mt-2 relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 group">
+                                         <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                                         <button 
+                                            type="button" 
+                                            onClick={() => setFormData(prev => ({ ...prev, imageUrl: '' }))}
+                                            className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                         >
+                                             <X className="w-4 h-4" />
+                                         </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
