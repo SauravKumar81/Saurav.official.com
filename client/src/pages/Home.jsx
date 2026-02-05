@@ -10,9 +10,12 @@ import { ArrowRight, Play, ExternalLink, Sparkles } from 'lucide-react';
 
 import Experience from '../components/Experience';
 
+import StarBackground from '../components/StarBackground';
+
 const Home = () => {
   return (
-    <div className="min-h-screen bg-dark text-white font-sans selection:bg-primary selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-dark text-white font-sans selection:bg-primary selection:text-white overflow-x-hidden relative">
+      <StarBackground />
       <Navbar />
       
       {/* Hero Section */}

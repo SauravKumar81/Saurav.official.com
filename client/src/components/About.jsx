@@ -85,7 +85,7 @@ const About = () => {
     };
 
     return (
-        <section id="about" className="py-24 bg-dark relative overflow-hidden" style={{ perspective: "1000px" }}>
+        <section id="about" className="py-24 relative overflow-hidden" style={{ perspective: "1000px" }}>
              
             <div className="max-w-[1400px] mx-auto px-6 relative z-10">
                 <motion.div 
@@ -128,27 +128,27 @@ const About = () => {
                         </TiltCard>
                     </div>
 
-                    {/* Card 2: Tech Stack (Floating Icons) */}
+                    {/* Card 2: Technical Expertise (Description Based) */}
                     <div className="h-full">
                         <TiltCard className="bg-dark-secondary rounded-3xl p-8 border border-white/10 overflow-hidden flex flex-col justify-between group hover:shadow-2xl hover:shadow-nft-purple/20 h-full">
                              <div className="absolute bottom-0 right-0 w-40 h-40 bg-nft-purple/20 rounded-full blur-3xl group-hover:bg-nft-purple/40 transition-colors -z-10"></div>
 
-                             <div className="relative z-10">
-                                 <h3 className="text-xl font-bold text-white mb-6">Code is Craft</h3>
-                                 <div className="flex flex-wrap gap-3">
-                                     {['React', 'Node', 'Mongo', 'Express', 'Tailwind', 'Next.js'].map((tech) => (
-                                         <span key={tech} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 hover:bg-white/20 hover:text-white transition-colors cursor-default">
-                                             {tech}
-                                         </span>
-                                     ))}
+                             <div className="relative z-10 h-full flex flex-col justify-between">
+                                 <div>
+                                    <h3 className="text-xl font-bold text-white mb-4">Technical Expertise</h3>
+                                    <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+                                        My core stack is built on <span className="text-white font-medium">React, Node.js, and MongoDB</span>, allowing me to architect full-stack applications from the ground up. 
+                                    </p>
+                                    <p className="text-gray-400 leading-relaxed text-sm md:text-base mt-4">
+                                        I am passionate about <span className="text-white font-medium">performance optimization</span> and implementing complex UI interactions using libraries like Framer Motion and Three.js to bring digital experiences to life.
+                                    </p>
                                  </div>
-                             </div>
-                             
-                             <div className="mt-8 relative h-32">
-                                 {/* Floating Icons Animation Mockup */}
-                                 <motion.div animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute top-0 right-10 p-3 bg-[#61DAFB]/20 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Code2 className="w-8 h-8 text-[#61DAFB]" /></motion.div>
-                                 <motion.div animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-2 left-4 p-3 bg-[#68A063]/20 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Database className="w-8 h-8 text-[#68A063]" /></motion.div>
-                                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} className="absolute top-8 left-1/2 p-3 bg-white/10 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Cpu className="w-8 h-8 text-white" /></motion.div>
+                                 
+                                 <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between text-xs text-gray-500 font-mono">
+                                     <span>MERN STACK</span>
+                                     <span>NEXT.JS</span>
+                                     <span>TAILWIND</span>
+                                 </div>
                              </div>
                         </TiltCard>
                     </div>

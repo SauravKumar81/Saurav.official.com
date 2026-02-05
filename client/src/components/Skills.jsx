@@ -44,7 +44,7 @@ const Skills = () => {
     };
 
     return (
-        <section id="skills" className="py-24 bg-dark-secondary relative">
+        <section id="skills" className="py-24 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-20">
                     <span className="text-neon-purple font-medium tracking-wide text-sm">MY EXPERTISE</span>
@@ -65,16 +65,19 @@ const Skills = () => {
                         <motion.div 
                             key={index}
                             variants={itemVariants}
-                            className="bg-dark p-8 rounded-2xl border border-white/5 hover:border-neon-purple/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-neon-purple/20"
+                            className="group flex flex-col items-center text-center"
                         >
-                            <div className="mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                {skill.icon}
+                            <div className="mb-4 inline-flex p-4 bg-white/5 rounded-2xl group-hover:bg-primary/20 group-hover:text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                                {React.cloneElement(skill.icon, { className: "w-8 h-8" })}
                             </div>
-                            <h3 className="text-xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">{skill.category}</h3>
+                            
+                            <h3 className="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors">{skill.category}</h3>
+                            
+                            <div className="w-12 h-1 bg-white/10 rounded-full mb-6 group-hover:bg-primary/50 transition-colors"></div>
+
                             <ul className="space-y-3">
                                 {skill.items.map((item, idx) => (
-                                    <li key={idx} className="flex items-center text-gray-400 group-hover:text-gray-300 transition-colors">
-                                        <span className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3 group-hover:bg-neon-green transition-colors"></span>
+                                    <li key={idx} className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">
                                         {item}
                                     </li>
                                 ))}

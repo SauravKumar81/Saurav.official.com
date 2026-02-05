@@ -73,7 +73,7 @@ const Experience = () => {
     ];
 
     return (
-        <section id="experience" className="py-24 bg-dark relative overflow-hidden" ref={ref}>
+        <section id="experience" className="py-24 relative overflow-hidden" ref={ref}>
             <div className="max-w-[1200px] mx-auto px-6 relative">
                  <motion.div 
                     initial={{ opacity: 0, y: 20 }}

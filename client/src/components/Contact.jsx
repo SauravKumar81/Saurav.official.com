@@ -1,35 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
 
-const StarBackground = () => {
-    // Generate static stars for consistent rendering
-    const stars = Array.from({ length: 50 }).map((_, i) => ({
-        id: i,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        size: Math.random() * 2 + 1,
-        delay: Math.random() * 2,
-    }));
 
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {stars.map((star) => (
-                <div
-                    key={star.id}
-                    className="absolute bg-white rounded-full animate-twinkle"
-                    style={{
-                        top: star.top,
-                        left: star.left,
-                        width: `${star.size}px`,
-                        height: `${star.size}px`,
-                        animationDelay: `${star.delay}s`,
-                        opacity: Math.random() * 0.5 + 0.3,
-                    }}
-                />
-            ))}
-        </div>
-    );
-};
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -50,11 +22,8 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="py-24 bg-dark-secondary relative overflow-hidden">
+        <section id="contact" className="py-24 relative overflow-hidden">
              
-             {/* Starry Background */}
-             <StarBackground />
-
              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-purple via-primary to-neon-green"></div>
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
