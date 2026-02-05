@@ -7,19 +7,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: "#050505", // Deep black
-        "dark-secondary": "#111111",
-        primary: "#8B5CF6", // Purple
-        "neon-green": "#CCFF00", // The specific Lime/Neon Green from the image
-        "neon-purple": "#6D28D9", // Deep Purple
+        dark: "#0a0a0a", // Deep black
+        "dark-secondary": "#121212",
+        primary: "#FF0055", // The Hot Pink/Red from the reference
+        "nft-purple": "#7000FF", // Secondary accent
+        "glass": "rgba(255, 255, 255, 0.05)",
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Anton', 'sans-serif'], // For the big bold text "LANDING"
-        marker: ['Permanent Marker', 'cursive'], // For the "PAGE" / "PROJECT" text
+        sans: ['Outfit', 'Inter', 'sans-serif'], // Back to clean sans-serif
+        display: ['Outfit', 'sans-serif'],
       },
       backgroundImage: {
-        'urban-overlay': "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9))",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-glow': "conic-gradient(from 180deg at 50% 50%, #FF0055 0deg, #7000FF 180deg, #FF0055 360deg)",
+      },
+      animation: {
+        'spin-slow-custom': 'spin 10s linear infinite',
+        'twinkle': 'twinkle 2s infinite ease-in-out',
+      },
+      keyframes: {
+        twinkle: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.2 },
+        }
       }
     },
   },

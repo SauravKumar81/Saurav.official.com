@@ -1,72 +1,199 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import profileImage from '../assets/profile.png';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Copy, Check, Globe, Code2, Database, Layout, Server, Cpu } from 'lucide-react';
+
+const TypewriterText = ({ text, delay = 0 }) => {
+  const [displayText, setDisplayText] = useState('');
+  
+  useEffect(() => {
+    let timeout;
+    const startTimeout = setTimeout(() => {
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 50); 
+      
+      return () => clearInterval(interval);
+    }, delay);
+    
+    return () => clearTimeout(startTimeout);
+  }, [text, delay]);
+
+  return <span>{displayText}</span>;
+}
+
+const TiltCard = ({ children, className }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+    const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+
+    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
+    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseXFromCenter = e.clientX - rect.left - width / 2;
+        const mouseYFromCenter = e.clientY - rect.top - height / 2;
+        const xPct = mouseXFromCenter / width;
+        const yPct = mouseYFromCenter / height;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+            }}
+            className={`relative transition-all duration-200 ease-linear ${className}`}
+        >
+            <div style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }} className="h-full">
+                {children}
+            </div>
+        </motion.div>
+    );
+};
+
+
 
 const About = () => {
-    return (
-        <section id="about" className="py-24 bg-dark relative overflow-hidden">
-             {/* Decorational Elements */}
-            <div className="absolute top-1/4 right-0 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl"></div>
-            
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="flex flex-col md:flex-row items-center gap-16">
-                    <motion.div 
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6 }}
-                        className="md:w-1/2 relative"
-                    >
-                        <div className="relative z-10 rounded-2xl overflow-hidden glass-card p-2">
-                             <img 
-                                src={profileImage}
-                                alt="Working" 
-                                className="rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 transform hover:scale-105"
-                            />
-                        </div>
-                        {/* Background Shape */}
-                        <div className="absolute -bottom-6 -left-6 w-full h-full border-2 border-neon-green/30 rounded-2xl -z-10"></div>
-                    </motion.div>
+    const [copied, setCopied] = useState(false);
+    const email = "saurav.dev@example.com"; 
 
-                    <motion.div 
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="md:w-1/2 space-y-8"
-                    >
-                        <div>
-                             <h2 className="text-neon-green font-medium tracking-wide text-sm mb-2">ABOUT ME</h2>
-                             <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                                Crafting digital experiences with <span className="gradient-text">code & passion</span>.
-                            </h3>
-                        </div>
-                        
-                        <p className="text-gray-400 leading-relaxed text-lg">
-                            I am a Full-Stack Developer who bridges the gap between design and functionality. 
-                            My journey began with a simple curiosity about how the web works, which has since evolved 
-                            into a career dedicated to building robust, scalable applications.
-                        </p>
-                        
-                        <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
-                            <div>
-                                <h4 className="text-white font-bold text-xl mb-1">03+</h4>
-                                <p className="text-gray-500 text-sm">Years Experience</p>
+    const handleCopy = () => {
+        navigator.clipboard.writeText(email);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <section id="about" className="py-24 bg-dark relative overflow-hidden" style={{ perspective: "1000px" }}>
+             
+            <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-12"
+                >
+                     <h2 className="text-secondary font-display text-4xl mb-2">About Me</h2>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    {/* Card 1: Code Editor (Interactive Typewriter) */}
+                    <div className="md:col-span-2">
+                        <TiltCard className="bg-dark-secondary rounded-3xl p-8 border border-white/10 overflow-hidden group hover:border-primary/50 h-full">
+                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors -z-10"></div>
+                             
+                             <div className="flex gap-2 mb-6">
+                                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                             </div>
+                             
+                             <div className="font-mono text-sm md:text-base text-gray-300 space-y-2 relative z-10">
+                                 <p><span className="text-pink-500">const</span> <span className="text-blue-400">developer</span> = <span className="text-yellow-400">{"{"}</span></p>
+                                 <p className="pl-6">name: <span className="text-green-400">"<TypewriterText text="Saurav Kumar" delay={500} />"</span>,</p>
+                                 <p className="pl-6">role: <span className="text-green-400">"<TypewriterText text="Full-Stack Developer" delay={1500} />"</span>,</p>
+                                 <p className="pl-6">experience: <span className="text-orange-400">4</span>,</p>
+                                 <p className="pl-6">skills: <span className="text-yellow-400">['React', 'Node.js', 'MongoDB', 'Next.js']</span>,</p>
+                                 <p className="pl-6">hardWorker: <span className="text-red-400">true</span>,</p>
+                                 <p className="pl-6">problemSolver: <span className="text-red-400">true</span>,</p>
+                                 <p><span className="text-yellow-400">{"}"}</span>;</p>
+                             </div>
+                             
+                             <div className="mt-8">
+                                 <h3 className="text-2xl font-bold text-white mb-2">Hi, I'm Saurav</h3>
+                                 <p className="text-gray-400 group-hover:text-gray-300 transition-colors">Over the last 4 years, I developed my frontend and backend dev skills to deliver dynamic software and web applications.</p>
+                             </div>
+                        </TiltCard>
+                    </div>
+
+                    {/* Card 2: Tech Stack (Floating Icons) */}
+                    <div className="h-full">
+                        <TiltCard className="bg-dark-secondary rounded-3xl p-8 border border-white/10 overflow-hidden flex flex-col justify-between group hover:shadow-2xl hover:shadow-nft-purple/20 h-full">
+                             <div className="absolute bottom-0 right-0 w-40 h-40 bg-nft-purple/20 rounded-full blur-3xl group-hover:bg-nft-purple/40 transition-colors -z-10"></div>
+
+                             <div className="relative z-10">
+                                 <h3 className="text-xl font-bold text-white mb-6">Code is Craft</h3>
+                                 <div className="flex flex-wrap gap-3">
+                                     {['React', 'Node', 'Mongo', 'Express', 'Tailwind', 'Next.js'].map((tech) => (
+                                         <span key={tech} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 hover:bg-white/20 hover:text-white transition-colors cursor-default">
+                                             {tech}
+                                         </span>
+                                     ))}
+                                 </div>
+                             </div>
+                             
+                             <div className="mt-8 relative h-32">
+                                 {/* Floating Icons Animation Mockup */}
+                                 <motion.div animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute top-0 right-10 p-3 bg-[#61DAFB]/20 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Code2 className="w-8 h-8 text-[#61DAFB]" /></motion.div>
+                                 <motion.div animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-2 left-4 p-3 bg-[#68A063]/20 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Database className="w-8 h-8 text-[#68A063]" /></motion.div>
+                                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} className="absolute top-8 left-1/2 p-3 bg-white/10 rounded-xl hover:scale-110 transition-transform cursor-pointer"><Cpu className="w-8 h-8 text-white" /></motion.div>
+                             </div>
+                        </TiltCard>
+                    </div>
+
+                    {/* Card 3: Location / Remote (Interactive Globe) */}
+                     <div className="h-full">
+                        <TiltCard className="bg-dark-secondary rounded-3xl p-8 border border-white/10 overflow-hidden flex flex-col justify-end min-h-[250px] group hover:border-primary/50 h-full">
+                            {/* Globe / Map Graphic Mockup */}
+                            <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-500 -z-10">
+                                 <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop" alt="Globe" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                                 <div className="absolute inset-0 bg-gradient-to-t from-dark-secondary via-transparent to-transparent"></div>
                             </div>
-                            <div>
-                                <h4 className="text-white font-bold text-xl mb-1">50+</h4>
-                                <p className="text-gray-500 text-sm">Projects Completed</p>
+
+                            <div className="relative z-10" style={{ transform: "translateZ(50px)" }}>
+                                <h3 className="text-xl font-bold text-white mb-1">Time Zone</h3>
+                                <p className="text-gray-400 text-sm group-hover:text-white transition-colors">Based in India, open to remote work worldwide.</p>
+                                <div className="mt-4 flex items-center gap-2 text-primary font-bold">
+                                    <Globe className="w-4 h-4 animate-spin-slow-custom group-hover:text-white transition-colors" />
+                                    <span>UTC+05:30</span>
+                                </div>
                             </div>
-                            <div>
-                                <h4 className="text-white font-bold text-xl mb-1">20+</h4>
-                                <p className="text-gray-500 text-sm">Happy Clients</p>
+                        </TiltCard>
+                    </div>
+
+                    {/* Card 4: CTA (Hover Gradient) */}
+                    <div className="md:col-span-2 h-full">
+                        <TiltCard className="bg-gradient-to-r from-primary to-nft-purple rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden group shadow-lg hover:shadow-primary/25 h-full">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-700 -z-10"></div>
+
+                            <div className="relative z-10 text-center md:text-left" style={{ transform: "translateZ(50px)" }}>
+                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Want to start a project?</h3>
+                                <p className="text-white/80 group-hover:text-white transition-colors">Let's build something amazing together.</p>
                             </div>
-                             <div>
-                                <h4 className="text-white font-bold text-xl mb-1">24/7</h4>
-                                <p className="text-gray-500 text-sm">Support</p>
-                            </div>
-                        </div>
-                    </motion.div>
+                            
+                            <button 
+                                onClick={handleCopy}
+                                style={{ transform: "translateZ(80px)" }}
+                                className="relative z-10 bg-black/30 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl flex items-center gap-3 hover:bg-black/40 transition-all group/btn active:scale-95"
+                            >
+                                {copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5 group-hover/btn:text-primary transition-colors" />}
+                                <span className="font-mono">{copied ? "Email Copied!" : "Copy Email Address"}</span>
+                            </button>
+                        </TiltCard>
+                    </div>
+
                 </div>
             </div>
         </section>
