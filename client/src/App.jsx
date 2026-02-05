@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
@@ -10,6 +11,15 @@ import ProtectedRoute from './components/admin/ProtectedRoute';
 function App() {
   return (
     <Router>
+      <Toaster 
+        position="top-right" 
+        reverseOrder={false} 
+        toastOptions={{
+          style: {
+            zIndex: 9999,
+          },
+        }}
+      />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />

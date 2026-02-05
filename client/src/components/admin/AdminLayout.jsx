@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, FolderKanban, LogOut, FileText, Settings } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const AdminLayout = ({ children }) => {
     const navigate = useNavigate();
@@ -8,6 +9,7 @@ const AdminLayout = ({ children }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        toast.success('Logged out successfully');
         navigate('/admin/login');
     };
 

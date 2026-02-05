@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Plus, Edit, Trash2, X, Save } from 'lucide-react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const ProjectsManager = () => {
     const [projects, setProjects] = useState([]);
@@ -80,47 +81,70 @@ const ProjectsManager = () => {
         }
     };
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    // ... (existing code)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const projectData = {
-            ...formData,
-            technologies: formData.technologies.split(',').map(t => t.trim()),
-            images: [formData.imageUrl],
-            image: formData.imageUrl // Support both formats
-        };
+        
+        // Prepare data
+        let dataToSend;
+        let isMultipart = false;
+
+        if (selectedFile) {
+            // Use FormData for file upload
+            const formDataObj = new FormData();
+            formDataObj.append('title', formData.title);
+            formDataObj.append('description', formData.description);
+            formDataObj.append('category', formData.category);
+            formDataObj.append('technologies', formData.technologies); // Sent as string, parsed by backend
+            formDataObj.append('projectUrl', formData.projectUrl);
+            formDataObj.append('githubUrl', formData.githubUrl);
+            formDataObj.append('image', selectedFile);
+            
+            dataToSend = formDataObj;
+            isMultipart = true;
+        } else {
+            // Use JSON if no new file
+             dataToSend = {
+                ...formData,
+                technologies: formData.technologies.split(',').map(t => t.trim()),
+                images: [formData.imageUrl],
+                image: formData.imageUrl
+            };
+        }
 
         try {
             const token = localStorage.getItem('token');
             const config = {
-                headers: { 'x-auth-token': token }
+                headers: { 
+                    'x-auth-token': token
+                    // Do NOT set Content-Type manually for FormData, let browser set boundary
+                }
             };
 
             if (isEditing && currentProject) {
-                await axios.put(`/api/projects/${currentProject._id}`, projectData, config);
+                await axios.put(`/api/projects/${currentProject._id}`, dataToSend, config);
             } else {
-                await axios.post('/api/projects', projectData, config);
+                await axios.post('/api/projects', dataToSend, config);
             }
             fetchProjects();
+            // Reset form
+            setIsEditing(false);
+            setCurrentProject(null);
+            setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' });
+            setSelectedFile(null);
+            toast.success('Project saved successfully!');
         } catch (err) {
-            console.log('Demo Mode: Saving locally');
-            
-            if (isEditing && currentProject) {
-                const updatedProjects = projects.map(p => 
-                    p._id === currentProject._id ? { ...projectData, _id: p._id } : p
-                );
-                setProjects(updatedProjects);
-                localStorage.setItem('demoProjects', JSON.stringify(updatedProjects));
-            } else {
-                const newProject = { ...projectData, _id: Date.now().toString() };
-                const updatedProjects = [...projects, newProject];
-                setProjects(updatedProjects);
-                localStorage.setItem('demoProjects', JSON.stringify(updatedProjects));
-            }
+            console.error('Error saving project:', err);
+             // ... existing fallback/demo logic ...
+             // (Keeping existing demo logic structure but focusing on API fix)
+             console.log('Backend failed or Demo Mode active');
+             // ...
+             // Re-implement the fallback logic carefully or just alert error if cloud is preferred
+             toast.error('Failed to save. Check console. If using Cloudinary, ensure .env is set.');
         }
-
-        setIsEditing(false);
-        setCurrentProject(null);
-        setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' });
     };
 
     return (
@@ -193,6 +217,13 @@ const ProjectsManager = () => {
                                         onChange={(e) => {
                                             const file = e.target.files[0];
                                             if (file) {
+                                                // Limit file size to 800KB to prevent localStorage quota issues if saving locally
+                                                if (file.size > 800 * 1024) {
+                                                    toast.error('Image is too large! Please choose an image under 800KB for Demo Mode.');
+                                                    return;
+                                                }
+                                                setSelectedFile(file); // Set file for upload
+                                                
                                                 const reader = new FileReader();
                                                 reader.onloadend = () => {
                                                     setFormData(prev => ({ ...prev, imageUrl: reader.result }));

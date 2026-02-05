@@ -1,26 +1,51 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Trash2, Mail } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const MessagesManager = () => {
     // Mock data
     const [messages, setMessages] = useState([]);
 
     React.useEffect(() => {
-        const savedMessages = localStorage.getItem('demoMessages');
-        if (savedMessages) {
-            setMessages(JSON.parse(savedMessages));
-        } else {
-            setMessages([
-                { id: 1, name: 'John Doe', email: 'john@example.com', subject: 'Project Inquiry', message: 'Hi, I would like to discuss a project.', date: '2023-10-25' },
-                { id: 2, name: 'Jane Smith', email: 'jane@example.com', subject: 'Job Offer', message: 'We are hiring!', date: '2023-10-26' },
-            ]);
-        }
+        fetchMessages();
     }, []);
 
-    const handleDelete = (id) => {
+    const fetchMessages = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await axios.get('/api/contact', {
+                headers: { 'x-auth-token': token }
+            });
+            setMessages(res.data);
+        } catch (err) {
+            console.log('Backend not available, loading local messages');
+            const savedMessages = localStorage.getItem('demoMessages');
+            if (savedMessages) {
+                setMessages(JSON.parse(savedMessages));
+            } else {
+                setMessages([]);
+            }
+        }
+    };
+
+    const handleDelete = async (id) => {
         if (window.confirm('Delete this message?')) {
-            setMessages(messages.filter(m => m.id !== id));
+            try {
+                const token = localStorage.getItem('token');
+                await axios.delete(`/api/contact/${id}`, {
+                    headers: { 'x-auth-token': token }
+                });
+                setMessages(messages.filter(m => m._id !== id));
+                toast.success('Message deleted');
+            } catch (err) {
+                console.log('Deleting locally');
+                const updatedMessages = messages.filter(m => m.id !== id);
+                setMessages(updatedMessages);
+                localStorage.setItem('demoMessages', JSON.stringify(updatedMessages));
+                 toast.success('Message deleted (Demo Mode)');
+            }
         }
     };
 
@@ -32,7 +57,7 @@ const MessagesManager = () => {
 
             <div className="space-y-4">
                 {messages.map((message) => (
-                    <div key={message.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div key={message._id || message.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="flex justify-between items-start mb-4">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-blue-50 rounded-full">
@@ -43,7 +68,7 @@ const MessagesManager = () => {
                                     <p className="text-sm text-gray-500">{message.name} &lt;{message.email}&gt; • {message.date}</p>
                                 </div>
                             </div>
-                            <button onClick={() => handleDelete(message.id)} className="text-gray-400 hover:text-red-500">
+                            <button onClick={() => handleDelete(message._id || message.id)} className="text-gray-400 hover:text-red-500">
                                 <Trash2 className="w-5 h-5" />
                             </button>
                         </div>

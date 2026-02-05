@@ -1,34 +1,84 @@
 import React, { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Plus, Trash2, X, Save } from 'lucide-react';
-// import axios from 'axios';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const SkillsManager = () => {
-    // Mock data
-    const [skills, setSkills] = useState([
-        { id: 1, name: 'React', category: 'Frontend', proficiency: 90 },
-        { id: 2, name: 'Node.js', category: 'Backend', proficiency: 85 },
-        { id: 3, name: 'MongoDB', category: 'Database', proficiency: 80 },
-    ]);
+    const [skills, setSkills] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({ name: '', category: 'Frontend', proficiency: 50 });
+
+    React.useEffect(() => {
+        fetchSkills();
+    }, []);
+
+    const fetchSkills = async () => {
+        try {
+            const res = await axios.get('/api/skills');
+            setSkills(res.data);
+        } catch (err) {
+            console.log('Backend not available, loading local skills');
+            const savedSkills = localStorage.getItem('demoSkills');
+            if (savedSkills) {
+                setSkills(JSON.parse(savedSkills));
+            } else {
+                 setSkills([
+                    { _id: '1', name: 'React', category: 'Frontend', proficiency: 90 },
+                    { _id: '2', name: 'Node.js', category: 'Backend', proficiency: 85 },
+                ]);
+            }
+        }
+    };
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleDelete = (id) => {
-        if (window.confirm('Delete this skill?')) {
-            setSkills(skills.filter(s => s.id !== id));
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this skill?')) {
+            try {
+                const token = localStorage.getItem('token');
+                await axios.delete(`/api/skills/${id}`, {
+                    headers: { 'x-auth-token': token }
+                });
+                setSkills(skills.filter(s => s._id !== id));
+                toast.success('Skill deleted successfully!');
+            } catch (err) {
+                console.error('Error deleting skill:', err);
+                
+                // Fallback for Demo Mode
+                console.log('Deleting locally (fallback)');
+                const updatedSkills = skills.filter(s => s._id !== id);
+                setSkills(updatedSkills);
+                localStorage.setItem('demoSkills', JSON.stringify(updatedSkills));
+                toast.success('Skill deleted locally (Demo Mode)');
+            }
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newSkill = { ...formData, id: Date.now() };
-        setSkills([...skills, newSkill]);
-        setIsEditing(false);
-        setFormData({ name: '', category: 'Frontend', proficiency: 50 });
+        try {
+             const token = localStorage.getItem('token');
+             await axios.post('/api/skills', formData, {
+                 headers: { 'x-auth-token': token }
+             });
+             toast.success('Skill added successfully!');
+             fetchSkills();
+             setIsEditing(false);
+             setFormData({ name: '', category: 'Frontend', proficiency: 50 });
+        } catch (err) {
+            console.error('Error saving skill', err);
+            const newSkill = { ...formData, _id: Date.now().toString() };
+            const updatedSkills = [...skills, newSkill];
+            setSkills(updatedSkills);
+            localStorage.setItem('demoSkills', JSON.stringify(updatedSkills));
+            
+            toast.success('Skill saved locally (Demo Mode)');
+            setIsEditing(false);
+            setFormData({ name: '', category: 'Frontend', proficiency: 50 });
+        }
     };
 
     return (
@@ -89,7 +139,7 @@ const SkillsManager = () => {
                     </thead>
                     <tbody className="divide-y">
                         {skills.map((skill) => (
-                            <tr key={skill.id} className="hover:bg-gray-50">
+                            <tr key={skill._id} className="hover:bg-gray-50">
                                 <td className="px-6 py-4 font-medium">{skill.name}</td>
                                 <td className="px-6 py-4">
                                     <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
@@ -102,7 +152,7 @@ const SkillsManager = () => {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <button onClick={() => handleDelete(skill.id)} className="text-red-600 hover:text-red-800">
+                                    <button onClick={() => handleDelete(skill._id)} className="text-red-600 hover:text-red-800">
                                         <Trash2 className="w-4 h-4" />
                                     </button>
                                 </td>

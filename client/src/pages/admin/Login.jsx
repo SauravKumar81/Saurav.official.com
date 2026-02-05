@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Lock, User } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -27,16 +28,20 @@ const Login = () => {
             // For Demo/Dev purposes without backend running perfectly:
             if (formData.email === 'admin@example.com' && formData.password === 'admin123') {
                  localStorage.setItem('token', 'fake-jwt-token');
+                 toast.success('Welcome back, Admin!');
                  navigate('/admin');
                  return;
             }
 
             const res = await axios.post('/api/auth/login', formData);
             localStorage.setItem('token', res.data.token);
+            toast.success('Login successful!');
             navigate('/admin');
         } catch (err) {
             console.error(err);
-            setError(err.response?.data?.msg || 'Login failed. Try admin@example.com / admin123');
+            const msg = err.response?.data?.msg || 'Login failed. Try admin@example.com / admin123';
+            setError(msg);
+            toast.error(msg);
         }
     };
 

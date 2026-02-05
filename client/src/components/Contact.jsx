@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowRight, Loader2 } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 
@@ -10,25 +12,44 @@ const Contact = () => {
         subject: '',
         message: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        console.log('Form submitted:', formData);
         
-        // Save to local storage for Admin Panel "Demo Mode"
-        const existingMessages = JSON.parse(localStorage.getItem('demoMessages') || '[]');
-        const newMessage = {
-            id: Date.now(),
-            ...formData,
-            date: new Date().toISOString().split('T')[0]
-        };
-        localStorage.setItem('demoMessages', JSON.stringify([newMessage, ...existingMessages]));
-        
-        alert('Message sent! Check your Admin Dashboard.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        try {
+            const res = await axios.post('/api/contact', formData);
+            console.log('Server response:', res.data);
+            toast.success('Message sent successfully!');
+        } catch (err) {
+            console.error('Error sending message:', err);
+            
+            // Fallback to local storage if backend fails (Demo Mode)
+            try {
+                const existingMessages = JSON.parse(localStorage.getItem('demoMessages') || '[]');
+                const newMessage = {
+                    id: Date.now(),
+                    ...formData,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                localStorage.setItem('demoMessages', JSON.stringify([newMessage, ...existingMessages]));
+                
+                // Only show success toast if we actually "saved" it somewhere
+                toast.success('Message saved locally (Demo Mode). Check Admin Dashboard.');
+            } catch (storageErr) {
+                console.error('Local storage error:', storageErr);
+                toast.error('Failed to send message. Please try again later.');
+            }
+        } finally {
+            setFormData({ name: '', email: '', subject: '', message: '' });
+            setLoading(false);
+        }
     };
 
     return (
@@ -90,6 +111,7 @@ const Contact = () => {
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
+                                        required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon-purple outline-none transition-colors"
                                         placeholder="John Doe"
                                     />
@@ -101,6 +123,7 @@ const Contact = () => {
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
+                                        required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon-purple outline-none transition-colors"
                                         placeholder="john@example.com"
                                     />
@@ -114,6 +137,7 @@ const Contact = () => {
                                     name="subject"
                                     value={formData.subject}
                                     onChange={handleChange}
+                                    required
                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon-purple outline-none transition-colors"
                                     placeholder="Project Inquiry"
                                 />
@@ -125,6 +149,7 @@ const Contact = () => {
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
+                                    required
                                     rows="4"
                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon-purple outline-none transition-colors resize-none"
                                     placeholder="Tell me about your project..."
@@ -133,9 +158,19 @@ const Contact = () => {
 
                             <button 
                                 type="submit" 
-                                className="w-full bg-gradient-to-r from-neon-purple to-primary text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                                disabled={loading}
+                                className="w-full bg-gradient-to-r from-neon-purple to-primary text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                Send Message <Send className="w-4 h-4" />
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="w-5 h-5 animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Message <Send className="w-4 h-4" />
+                                    </>
+                                )}
                             </button>
                         </form>
                     </div>
