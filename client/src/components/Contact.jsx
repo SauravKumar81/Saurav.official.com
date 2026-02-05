@@ -17,7 +17,17 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert('Message sent! (Simulation)');
+        
+        // Save to local storage for Admin Panel "Demo Mode"
+        const existingMessages = JSON.parse(localStorage.getItem('demoMessages') || '[]');
+        const newMessage = {
+            id: Date.now(),
+            ...formData,
+            date: new Date().toISOString().split('T')[0]
+        };
+        localStorage.setItem('demoMessages', JSON.stringify([newMessage, ...existingMessages]));
+        
+        alert('Message sent! Check your Admin Dashboard.');
         setFormData({ name: '', email: '', subject: '', message: '' });
     };
 

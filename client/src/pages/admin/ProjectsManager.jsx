@@ -29,11 +29,22 @@ const ProjectsManager = () => {
 
     const fetchProjects = async () => {
         try {
-            const res = await axios.get('/api/projects');
-            setProjects(res.data);
+            // Set brief timeout to fail fast if backend is down
+            const res = await axios.get('/api/projects', { timeout: 1000 });
+            if (Array.isArray(res.data)) {
+                setProjects(res.data);
+            } else {
+                throw new Error('Invalid data format received');
+            }
         } catch (err) {
-            console.log('Using mock data');
-            setProjects(mockProjects);
+            console.log('Backend not available, switching to Demo Mode');
+            // Check if we have local storage data for persistence during demo
+            const savedProjects = localStorage.getItem('demoProjects');
+            if (savedProjects) {
+                setProjects(JSON.parse(savedProjects));
+            } else {
+                setProjects(mockProjects);
+            }
         }
     };
 
@@ -48,10 +59,10 @@ const ProjectsManager = () => {
             title: project.title,
             description: project.description || '',
             category: project.category || '',
-            technologies: project.technologies ? project.technologies.join(', ') : '',
+            technologies: project.technologies ? (Array.isArray(project.technologies) ? project.technologies.join(', ') : project.technologies) : '',
             projectUrl: project.projectUrl || '',
             githubUrl: project.githubUrl || '',
-            imageUrl: project.images ? project.images[0] : ''
+            imageUrl: project.images ? project.images[0] : (project.image || '')
         });
     };
 
@@ -61,9 +72,10 @@ const ProjectsManager = () => {
                 await axios.delete(`/api/projects/${id}`);
                 fetchProjects();
             } catch (err) {
-                console.error(err);
-                alert('Failed to delete (Backend might not be running)');
-                setProjects(projects.filter(p => p._id !== id));
+                console.log('Demo Mode: Deleting locally');
+                const updatedProjects = projects.filter(p => p._id !== id);
+                setProjects(updatedProjects);
+                localStorage.setItem('demoProjects', JSON.stringify(updatedProjects));
             }
         }
     };
@@ -73,7 +85,8 @@ const ProjectsManager = () => {
         const projectData = {
             ...formData,
             technologies: formData.technologies.split(',').map(t => t.trim()),
-            images: [formData.imageUrl]
+            images: [formData.imageUrl],
+            image: formData.imageUrl // Support both formats
         };
 
         try {
@@ -87,15 +100,27 @@ const ProjectsManager = () => {
             } else {
                 await axios.post('/api/projects', projectData, config);
             }
-            
-            setIsEditing(false);
-            setCurrentProject(null);
-            setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' });
             fetchProjects();
         } catch (err) {
-            console.error(err);
-            alert('Operation failed. Check console.');
+            console.log('Demo Mode: Saving locally');
+            
+            if (isEditing && currentProject) {
+                const updatedProjects = projects.map(p => 
+                    p._id === currentProject._id ? { ...projectData, _id: p._id } : p
+                );
+                setProjects(updatedProjects);
+                localStorage.setItem('demoProjects', JSON.stringify(updatedProjects));
+            } else {
+                const newProject = { ...projectData, _id: Date.now().toString() };
+                const updatedProjects = [...projects, newProject];
+                setProjects(updatedProjects);
+                localStorage.setItem('demoProjects', JSON.stringify(updatedProjects));
+            }
         }
+
+        setIsEditing(false);
+        setCurrentProject(null);
+        setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' });
     };
 
     return (

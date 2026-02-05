@@ -43,12 +43,18 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                // Uncomment for real API
-                // const res = await axios.get('/api/projects');
-                // setProjects(res.data);
-                setProjects(staticProjects);
+                // Try fetching from API first (with short timeout)
+                const res = await axios.get('/api/projects', { timeout: 1000 });
+                setProjects(res.data);
             } catch (err) {
-                setProjects(staticProjects);
+                // Fallback to Demo Mode (Local Storage) if API fails
+                // This connects the Admin Panel inputs to the public view
+                const savedProjects = localStorage.getItem('demoProjects');
+                if (savedProjects) {
+                    setProjects(JSON.parse(savedProjects));
+                } else {
+                    setProjects(staticProjects);
+                }
             }
         };
         fetchProjects();

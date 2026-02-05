@@ -4,10 +4,19 @@ import { Trash2, Mail } from 'lucide-react';
 
 const MessagesManager = () => {
     // Mock data
-    const [messages, setMessages] = useState([
-        { id: 1, name: 'John Doe', email: 'john@example.com', subject: 'Project Inquiry', message: 'Hi, I would like to discuss a project.', date: '2023-10-25' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com', subject: 'Job Offer', message: 'We are hiring!', date: '2023-10-26' },
-    ]);
+    const [messages, setMessages] = useState([]);
+
+    React.useEffect(() => {
+        const savedMessages = localStorage.getItem('demoMessages');
+        if (savedMessages) {
+            setMessages(JSON.parse(savedMessages));
+        } else {
+            setMessages([
+                { id: 1, name: 'John Doe', email: 'john@example.com', subject: 'Project Inquiry', message: 'Hi, I would like to discuss a project.', date: '2023-10-25' },
+                { id: 2, name: 'Jane Smith', email: 'jane@example.com', subject: 'Job Offer', message: 'We are hiring!', date: '2023-10-26' },
+            ]);
+        }
+    }, []);
 
     const handleDelete = (id) => {
         if (window.confirm('Delete this message?')) {
