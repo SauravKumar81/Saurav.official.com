@@ -6,7 +6,7 @@ import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, ExternalLink, Sparkles, Download } from 'lucide-react';
 
 import Experience from '../components/Experience';
 
@@ -76,6 +76,18 @@ const Home = () => {
                             <Play className="w-5 h-5 fill-current" />
                         </div>
                         <span className="font-medium">About Me</span>
+                    </a>
+
+                    <a 
+                        href="/resume.pdf" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
+                    >
+                        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all">
+                            <Download className="w-5 h-5" />
+                        </div>
+                        <span className="font-medium tracking-wide">Download CV</span>
                     </a>
                 </motion.div>
             </div>
