@@ -1,0 +1,213 @@
+import React, { useState, useEffect } from 'react';
+import AdminLayout from '../../components/admin/AdminLayout';
+import { Plus, Edit, Trash2, X, Save } from 'lucide-react';
+import axios from 'axios';
+
+const ProjectsManager = () => {
+    const [projects, setProjects] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentProject, setCurrentProject] = useState(null);
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        category: '',
+        technologies: '',
+        projectUrl: '',
+        githubUrl: '',
+        imageUrl: '' // simplified for now
+    });
+
+    // Mock data for dev
+    const mockProjects = [
+        { _id: '1', title: 'E-Commerce Platform', category: 'Web Development' },
+        { _id: '2', title: 'Task App', category: 'Productivity' }
+    ];
+
+    useEffect(() => {
+        fetchProjects();
+    }, []);
+
+    const fetchProjects = async () => {
+        try {
+            const res = await axios.get('/api/projects');
+            setProjects(res.data);
+        } catch (err) {
+            console.log('Using mock data');
+            setProjects(mockProjects);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleEdit = (project) => {
+        setIsEditing(true);
+        setCurrentProject(project);
+        setFormData({
+            title: project.title,
+            description: project.description || '',
+            category: project.category || '',
+            technologies: project.technologies ? project.technologies.join(', ') : '',
+            projectUrl: project.projectUrl || '',
+            githubUrl: project.githubUrl || '',
+            imageUrl: project.images ? project.images[0] : ''
+        });
+    };
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this project?')) {
+            try {
+                await axios.delete(`/api/projects/${id}`);
+                fetchProjects();
+            } catch (err) {
+                console.error(err);
+                alert('Failed to delete (Backend might not be running)');
+                setProjects(projects.filter(p => p._id !== id));
+            }
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const projectData = {
+            ...formData,
+            technologies: formData.technologies.split(',').map(t => t.trim()),
+            images: [formData.imageUrl]
+        };
+
+        try {
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: { 'x-auth-token': token }
+            };
+
+            if (isEditing && currentProject) {
+                await axios.put(`/api/projects/${currentProject._id}`, projectData, config);
+            } else {
+                await axios.post('/api/projects', projectData, config);
+            }
+            
+            setIsEditing(false);
+            setCurrentProject(null);
+            setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' });
+            fetchProjects();
+        } catch (err) {
+            console.error(err);
+            alert('Operation failed. Check console.');
+        }
+    };
+
+    return (
+        <AdminLayout>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-2xl font-bold text-dark">Manage Projects</h1>
+                <button 
+                    onClick={() => { setIsEditing(true); setCurrentProject(null); setFormData({ title: '', description: '', category: '', technologies: '', projectUrl: '', githubUrl: '', imageUrl: '' }); }}
+                    className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors"
+                >
+                    <Plus className="w-4 h-4" /> Add Project
+                </button>
+            </div>
+
+            {isEditing ? (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-xl font-bold">{currentProject ? 'Edit Project' : 'New Project'}</h2>
+                        <button onClick={() => setIsEditing(false)} className="text-gray-500 hover:text-dark">
+                            <X className="w-6 h-6" />
+                        </button>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                                <input type="text" name="title" value={formData.title} onChange={handleInputChange} required className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <input type="text" name="category" value={formData.category} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea name="description" value={formData.description} onChange={handleInputChange} rows="3" className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Technologies (comma separated)</label>
+                            <input type="text" name="technologies" value={formData.technologies} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" placeholder="React, Node.js, MongoDB" />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Project URL</label>
+                                <input type="text" name="projectUrl" value={formData.projectUrl} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">GitHub URL</label>
+                                <input type="text" name="githubUrl" value={formData.githubUrl} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-primary" />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end gap-3 pt-4">
+                            <button type="button" onClick={() => setIsEditing(false)} className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50">Cancel</button>
+                            <button type="submit" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 flex items-center gap-2">
+                                <Save className="w-4 h-4" /> Save Project
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            ) : (
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <table className="w-full text-left">
+                        <thead className="bg-gray-50 border-b">
+                            <tr>
+                                <th className="px-6 py-3 text-sm font-semibold text-gray-600">Title</th>
+                                <th className="px-6 py-3 text-sm font-semibold text-gray-600">Category</th>
+                                <th className="px-6 py-3 text-sm font-semibold text-gray-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y">
+                            {projects.map((project) => (
+                                <tr key={project._id} className="hover:bg-gray-50">
+                                    <td className="px-6 py-4">{project.title}</td>
+                                    <td className="px-6 py-4">
+                                        <span className="px-2 py-1 bg-blue-100 text-primary text-xs rounded-full">
+                                            {project.category}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex gap-2">
+                                            <button onClick={() => handleEdit(project)} className="p-1 text-blue-600 hover:bg-blue-50 rounded">
+                                                <Edit className="w-4 h-4" />
+                                            </button>
+                                            <button onClick={() => handleDelete(project._id)} className="p-1 text-red-600 hover:bg-red-50 rounded">
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                            {projects.length === 0 && (
+                                <tr>
+                                    <td colSpan="3" className="px-6 py-8 text-center text-gray-500">
+                                        No projects found. Add one to get started.
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </AdminLayout>
+    );
+};
+
+export default ProjectsManager;
