@@ -38,6 +38,7 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  target="_blank" rel="noopener noreferrer"
                   className="px-6 py-2 text-xs font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all tracking-widest"
                 >
                   {link.name}
@@ -74,6 +75,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                target="_blank" rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white block px-3 py-4 text-center text-sm font-bold tracking-widest border-b border-white/5 last:border-0"
                 onClick={() => setIsOpen(false)}
               >

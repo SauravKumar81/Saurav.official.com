@@ -64,14 +64,14 @@ const Home = () => {
                     transition={{ delay: 0.6 }}
                     className="flex flex-wrap items-center gap-6"
                 >
-                    <a href="#projects" className="group relative px-8 py-4 bg-primary rounded-full text-white font-bold text-lg overflow-hidden">
+                    <a href="#projects" target="_blank" rel="noopener noreferrer" className="group relative px-8 py-4 bg-primary rounded-full text-white font-bold text-lg overflow-hidden">
                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         <span className="relative flex items-center gap-2">
                             Explore Work <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </span>
                     </a>
                     
-                    <a href="#about" className="flex items-center gap-3 text-white hover:text-primary transition-colors group">
+                    <a href="#about" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white hover:text-primary transition-colors group">
                         <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary transition-colors">
                             <Play className="w-5 h-5 fill-current" />
                         </div>

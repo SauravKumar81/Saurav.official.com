@@ -87,10 +87,10 @@ const Projects = () => {
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                                 />
                                 <div className="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm flex items-center justify-center gap-4">
-                                     <a href={project.githubUrl} className="p-3 bg-white/10 rounded-full text-white hover:bg-white/20 hover:scale-110 transition-all backdrop-blur-md border border-white/10">
+                                     <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 rounded-full text-white hover:bg-white/20 hover:scale-110 transition-all backdrop-blur-md border border-white/10">
                                         <Github className="w-6 h-6" />
                                     </a>
-                                    <a href={project.projectUrl} className="p-3 bg-white/10 rounded-full text-white hover:bg-white/20 hover:scale-110 transition-all backdrop-blur-md border border-white/10">
+                                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 rounded-full text-white hover:bg-white/20 hover:scale-110 transition-all backdrop-blur-md border border-white/10">
                                         <ExternalLink className="w-6 h-6" />
                                     </a>
                                 </div>
@@ -106,14 +106,14 @@ const Projects = () => {
                                 <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{project.description}</p>
                                 
                                 <div className="flex flex-wrap gap-2">
-                                    {project.technologies.slice(0, 3).map((tech, idx) => (
+                                    {(project.technologies || []).slice(0, 3).map((tech, idx) => (
                                         <span key={idx} className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
                                             {tech}
                                         </span>
                                     ))}
-                                    {project.technologies.length > 3 && (
+                                    {(project.technologies || []).length > 3 && (
                                          <span className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
-                                            +{project.technologies.length - 3}
+                                            +{(project.technologies || []).length - 3}
                                         </span>
                                     )}
                                 </div>
