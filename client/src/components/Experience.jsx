@@ -53,22 +53,16 @@ const Experience = () => {
 
     const experiences = [
         {
-            role: "Senior Full Stack Dev",
-            company: "Tech Solutions Inc.",
+            role: "Full-Stack Developer (MERN & Next.js)",
+            company: "Self-Employed / Student",
             period: "2023 - Present",
-            description: "Leading the development of scalable web applications using React, Node.js, and Microservices architecture."
+            description: "Building multiple full-stack applications utilizing the MERN stack and Next.js. Exploring numerous modern npm packages to accelerate frontend interactions and backend API services."
         },
         {
-            role: "Frontend Developer",
-            company: "Digital Agency",
-            period: "2021 - 2023",
-            description: "Crafted award-winning interactive websites and implemented complex UI animations for high-profile clients."
-        },
-        {
-            role: "Junior Web Developer",
-            company: "Startup Hub",
-            period: "2020 - 2021",
-            description: "Collaborated with cross-functional teams to build and maintain responsive websites using modern JavaScript frameworks."
+            role: "Frontend Web Developer Intern",
+            company: "Student Projects & Hackathons",
+            period: "2022 - 2023",
+            description: "Collaborated with peers to build responsive user interfaces using tailored CSS frameworks and component-driven React designs."
         }
     ];
 
