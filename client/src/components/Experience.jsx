@@ -53,30 +53,30 @@ const Experience = () => {
 
     const experiences = [
         {
-            role: "Full-Stack Developer (MERN & Next.js)",
-            company: "Self-Employed / Student",
-            period: "2023 - Present",
-            description: "Building multiple full-stack applications utilizing the MERN stack and Next.js. Exploring numerous modern npm packages to accelerate frontend interactions and backend API services."
+            role: "B.Tech in Computer Science & Engineering",
+            company: "Undergraduate Student",
+            period: "Current",
+            description: "Currently pursuing my Bachelor of Technology in CSE. Building a strong foundation in computer science core subjects while actively developing my skills in full-stack web development."
         },
         {
-            role: "Frontend Web Developer Intern",
-            company: "Student Projects & Hackathons",
-            period: "2022 - 2023",
-            description: "Collaborated with peers to build responsive user interfaces using tailored CSS frameworks and component-driven React designs."
+            role: "Full-Stack Development Learner",
+            company: "Self-Taught & Projects",
+            period: "2023 - Present",
+            description: "In the active learning phase of modern web technologies, specifically the MERN stack and Next.js. Exploring APIs, frontend design, and building hands-on projects to level up my development capabilities."
         }
     ];
 
     return (
         <section id="experience" className="py-24 relative overflow-hidden" ref={ref}>
             <div className="max-w-[1200px] mx-auto px-6 relative">
-                 <motion.div 
+                <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mb-20"
                 >
-                    <span className="text-primary font-bold tracking-widest uppercase text-sm">Career Path</span>
-                    <h2 className="text-4xl md:text-5xl font-display text-white mt-3">My Experience</h2>
+                    <span className="text-primary font-bold tracking-widest uppercase text-sm">Learning Journey</span>
+                    <h2 className="text-4xl md:text-5xl font-display text-white mt-3">Education & Background</h2>
                 </motion.div>
 
                 <div className="relative">
