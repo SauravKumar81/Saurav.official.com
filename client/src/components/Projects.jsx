@@ -1,64 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
-import axios from 'axios';
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    
-    // Static fallback data
-    const staticProjects = [
+    // Static project data
+    const projects = [
         {
             _id: '1',
-            title: 'E-Commerce Platform',
-            description: 'A full-featured online store built with MERN stack. Includes user authentication, product management, and payment integration.',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Redux'],
-            githubUrl: 'https://github.com',
-            projectUrl: 'https://example.com',
-            image: 'https://images.unsplash.com/photo-1557821552-17105176677c?fit=crop&w=800&q=80',
+            title: 'CiviX',
+            description: 'A comprehensive web application with advanced features and a modern UI.',
+            technologies: ['TypeScript', 'React', 'Node.js'],
+            githubUrl: 'https://github.com/SauravKumar81/CiviX',
+            projectUrl: 'https://civi-x.vercel.app',
+            image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?fit=crop&w=800&q=80',
             category: 'Web Development'
         },
         {
             _id: '2',
-            title: 'Task Management App',
-            description: 'A collaborative task manager with real-time updates using Socket.io. Features drag-and-drop interface and team workspaces.',
-            technologies: ['Next.js', 'Firebase', 'Tailwind CSS'],
-            githubUrl: 'https://github.com',
-            projectUrl: 'https://example.com',
-            image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?fit=crop&w=800&q=80',
-            category: 'Productivity'
+            title: 'Controller-ps5',
+            description: 'An interactive replication of a PS5 Controller user interface built focusing on advanced styling.',
+            technologies: ['CSS', 'JavaScript', 'HTML'],
+            githubUrl: 'https://github.com/SauravKumar81/Controller-ps5',
+            projectUrl: 'https://ps5-delta.vercel.app',
+            image: 'https://images.unsplash.com/photo-1606144042873-40e1e920d0f5?fit=crop&w=800&q=80',
+            category: 'UI/UX Design'
         },
         {
             _id: '3',
-            title: 'Weather Dashboard',
-            description: 'Real-time weather application using OpenWeatherMap API. Provides 7-day forecast and historical data visualization.',
-            technologies: ['React', 'Chart.js', 'API Integration'],
-            githubUrl: 'https://github.com',
-            projectUrl: 'https://example.com',
-            image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?fit=crop&w=800&q=80',
-            category: 'API Integration'
+            title: 'Intenview Prep',
+            description: 'A platform aimed at helping users prepare for technical interviews with curated questions.',
+            technologies: ['TypeScript', 'Next.js'],
+            githubUrl: 'https://github.com/SauravKumar81/intenview_prep',
+            projectUrl: 'https://intenview-prep.vercel.app',
+            image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?fit=crop&w=800&q=80',
+            category: 'Education'
+        },
+        {
+            _id: '4',
+            title: 'Wallet',
+            description: 'A secure and functional digital wallet application for tracking and managing assets.',
+            technologies: ['JavaScript', 'React'],
+            githubUrl: 'https://github.com/SauravKumar81/Wallet',
+            projectUrl: 'https://kettywallet.vercel.app',
+            image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?fit=crop&w=800&q=80',
+            category: 'Finance / Web3'
+        },
+        {
+            _id: '5',
+            title: 'AnonCare',
+            description: 'Anonymous Mental Health Chat application allowing users to connect and support each other securely.',
+            technologies: ['TypeScript', 'Node.js', 'Socket.io'],
+            githubUrl: 'https://github.com/SauravKumar81/AnonCare',
+            projectUrl: 'https://anon-care.vercel.app',
+            image: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?fit=crop&w=800&q=80',
+            category: 'Full Stack App'
+        },
+        {
+            _id: '6',
+            title: 'RELTO Hackathon 3.0',
+            description: 'Project developed during the RELTO Hackathon showcasing innovative problem-solving.',
+            technologies: ['TypeScript', 'Next.js'],
+            githubUrl: 'https://github.com/SauravKumar81/RELTO-Hackathon-3.0',
+            projectUrl: 'https://relto-eta.vercel.app/',
+            image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=800&q=80',
+            category: 'Hackathon'
+        },
+        {
+            _id: '7',
+            title: 'Zomato Clone',
+            description: 'A responsive clone of the popular food delivery app Zomato.',
+            technologies: ['JavaScript', 'React'],
+            githubUrl: 'https://github.com/SauravKumar81/Zomato',
+            projectUrl: 'https://zomato-xi-jet.vercel.app',
+            image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?fit=crop&w=800&q=80',
+            category: 'Web Clone'
+        },
+        {
+            _id: '8',
+            title: 'Two Good Co. Design',
+            description: 'Creative and responsive design implementation for Two Good Co.',
+            technologies: ['HTML', 'CSS', 'JavaScript'],
+            githubUrl: 'https://github.com/SauravKumar81/Two-Good-Co.-',
+            projectUrl: 'https://twogoodco12.netlify.app/',
+            image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?fit=crop&w=800&q=80',
+            category: 'UI/UX Design'
         }
     ];
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                // Try fetching from API first (with short timeout)
-                const res = await axios.get('/api/projects', { timeout: 1000 });
-                setProjects(res.data);
-            } catch (err) {
-                // Fallback to Demo Mode (Local Storage) if API fails
-                // This connects the Admin Panel inputs to the public view
-                const savedProjects = localStorage.getItem('demoProjects');
-                if (savedProjects) {
-                    setProjects(JSON.parse(savedProjects));
-                } else {
-                    setProjects(staticProjects);
-                }
-            }
-        };
-        fetchProjects();
-    }, []);
 
     return (
         <section id="projects" className="py-24 relative">

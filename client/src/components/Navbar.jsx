@@ -47,13 +47,10 @@ const Navbar = () => {
 
         {/* Social Icons / CTA */}
         <div className="hidden md:flex items-center gap-4">
-             <div className="flex items-center gap-2 pr-4 border-r border-white/10">
+             <div className="flex items-center gap-2 pr-4">
                  <a href="https://github.com/sauravkumar81" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors"><Github className="w-5 h-5" /></a>
                  <a href="https://www.linkedin.com/in/sauravkumar81/" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors"><Linkedin className="w-5 h-5" /></a>
              </div>
-             <Link to="/admin/login" className="bg-white text-black px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors flex items-center gap-2">
-                Let's Talk <ArrowRight className="w-4 h-4" />
-             </Link>
         </div>
 
         {/* Mobile menu button */}
