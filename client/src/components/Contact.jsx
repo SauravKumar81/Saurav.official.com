@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send, ArrowRight, Loader2 } from 'lucide-react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import toast from 'react-hot-toast';
 
-
+// ─── EmailJS Configuration ───────────────────────────────────────────────────
+// 1. Sign up free at https://www.emailjs.com
+// 2. Create a Gmail service  →  copy the Service ID here
+// 3. Create an email template → copy the Template ID here
+// 4. Go to Account → API Keys → copy your Public Key here
+const EMAILJS_SERVICE_ID  = 'service_vlwzcs7';
+const EMAILJS_TEMPLATE_ID = 'template_smmaanj';
+const EMAILJS_PUBLIC_KEY  = 'nfWBxHSzkhm-5I4yK';
+// ─────────────────────────────────────────────────────────────────────────────
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -21,33 +29,26 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        console.log('Form submitted:', formData);
-        
+
         try {
-            const res = await axios.post('/api/contact', formData);
-            console.log('Server response:', res.data);
-            toast.success('Message sent successfully!');
-        } catch (err) {
-            console.error('Error sending message:', err);
-            
-            // Fallback to local storage if backend fails (Demo Mode)
-            try {
-                const existingMessages = JSON.parse(localStorage.getItem('demoMessages') || '[]');
-                const newMessage = {
-                    id: Date.now(),
-                    ...formData,
-                    date: new Date().toISOString().split('T')[0]
-                };
-                localStorage.setItem('demoMessages', JSON.stringify([newMessage, ...existingMessages]));
-                
-                // Only show success toast if we actually "saved" it somewhere
-                toast.success('Message saved locally (Demo Mode). Check Admin Dashboard.');
-            } catch (storageErr) {
-                console.error('Local storage error:', storageErr);
-                toast.error('Failed to send message. Please try again later.');
-            }
-        } finally {
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    from_name:    formData.name,
+                    from_email:   formData.email,
+                    subject:      formData.subject,
+                    message:      formData.message,
+                    to_email:     'sauravedu.official@gmail.com',
+                },
+                EMAILJS_PUBLIC_KEY
+            );
+            toast.success('Message sent');
             setFormData({ name: '', email: '', subject: '', message: '' });
+        } catch (err) {
+            console.error('EmailJS error:', err);
+            toast.error('Failed to send message. Please try again.');
+        } finally {
             setLoading(false);
         }
     };
@@ -73,7 +74,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Email</h4>
-                                    <p className="text-gray-400">saurav@example.com</p>
+                                    <p className="text-gray-400">sauravedu.official@gmail.com</p>
                                 </div>
                             </div>
                             
@@ -83,7 +84,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Phone</h4>
-                                    <p className="text-gray-400">+91 98765 43210</p>
+                                    <p className="text-gray-400">9307482533</p>
                                 </div>
                             </div>
 
@@ -93,7 +94,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-lg">Location</h4>
-                                    <p className="text-gray-400">Bangalore, India</p>
+                                    <p className="text-gray-400">Vadodara, Gujarat, India</p>
                                 </div>
                             </div>
                         </div>

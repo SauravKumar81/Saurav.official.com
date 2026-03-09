@@ -22,7 +22,7 @@ const Projects = () => {
             technologies: ['CSS', 'JavaScript', 'HTML'],
             githubUrl: 'https://github.com/SauravKumar81/Controller-ps5',
             projectUrl: 'https://ps5-delta.vercel.app',
-            image: 'https://images.unsplash.com/photo-1606144042873-40e1e920d0f5?fit=crop&w=800&q=80',
+            image: '/images/ps5_controller.png',
             category: 'UI/UX Design'
         },
         {
