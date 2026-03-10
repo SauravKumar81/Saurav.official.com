@@ -1,0 +1,323 @@
+[
+    {
+        "description": "wresrest",
+        "homepageUrl": "",
+        "name": "testing",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/testing"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "ux",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/ux"
+    },
+    {
+        "description": "Portfolio",
+        "homepageUrl": "https://sauravorg.vercel.app/",
+        "name": "Saurav.official.com",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Saurav.official.com"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "SauravKumar81",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/SauravKumar81"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "SVG-ai",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/SVG-ai"
+    },
+    {
+        "description": "",
+        "homepageUrl": "https://civi-x.vercel.app",
+        "name": "CiviX",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/CiviX"
+    },
+    {
+        "description": "",
+        "homepageUrl": "https://ps5-delta.vercel.app",
+        "name": "Controller-ps5",
+        "primaryLanguage": {
+            "name": "CSS"
+        },
+        "url": "https://github.com/SauravKumar81/Controller-ps5"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "SilentDrop",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/SilentDrop"
+    },
+    {
+        "description": "intenview_prep",
+        "homepageUrl": "https://intenview-prep.vercel.app",
+        "name": "intenview_prep",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/intenview_prep"
+    },
+    {
+        "description": "",
+        "homepageUrl": "https://kettywallet.vercel.app",
+        "name": "Wallet",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Wallet"
+    },
+    {
+        "description": " AnonCare - Anonymous Mental Health Chat",
+        "homepageUrl": "https://anon-care.vercel.app",
+        "name": "AnonCare",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/AnonCare"
+    },
+    {
+        "description": "Relto hackathon ",
+        "homepageUrl": "https://relto-eta.vercel.app/",
+        "name": "RELTO-Hackathon-3.0",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/RELTO-Hackathon-3.0"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "DSA-2025",
+        "primaryLanguage": {
+            "name": "Java"
+        },
+        "url": "https://github.com/SauravKumar81/DSA-2025"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "Sap_fiori_project-2",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Sap_fiori_project-2"
+    },
+    {
+        "description": "???? AI Agent MERN (TypeScript) A full-stack, responsive AI Agent with voice assistance, persistent memory, and tool-calling capabilities.",
+        "homepageUrl": "",
+        "name": "ai-agent-app",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/ai-agent-app"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "Dr.fixU",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/Dr.fixU"
+    },
+    {
+        "description": "portfolio",
+        "homepageUrl": "https://sauravkumar81.netlify.app/",
+        "name": "3D-Portfolio",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/3D-Portfolio"
+    },
+    {
+        "description": "Production level Mern with  typescript ",
+        "homepageUrl": "",
+        "name": "AuthDB-MERN-with-Typescript",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/AuthDB-MERN-with-Typescript"
+    },
+    {
+        "description": "Zomato",
+        "homepageUrl": "https://zomato-xi-jet.vercel.app",
+        "name": "Zomato",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Zomato"
+    },
+    {
+        "description": "ai-problem-solver ",
+        "homepageUrl": "",
+        "name": "Ai-Problem-Solver",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Ai-Problem-Solver"
+    },
+    {
+        "description": "porject ",
+        "homepageUrl": "",
+        "name": "Hackathorn",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/Hackathorn"
+    },
+    {
+        "description": "Security",
+        "homepageUrl": "",
+        "name": "Security",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Security"
+    },
+    {
+        "description": "this is the mern application where u can store the information - image , text , video and audio ",
+        "homepageUrl": "",
+        "name": "Brainly",
+        "primaryLanguage": {
+            "name": "TypeScript"
+        },
+        "url": "https://github.com/SauravKumar81/Brainly"
+    },
+    {
+        "description": "Assignments for web development",
+        "homepageUrl": "",
+        "name": "Cohort-3-Assignments",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/Cohort-3-Assignments"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "React-page",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/React-page"
+    },
+    {
+        "description": "Course-Selling-App ",
+        "homepageUrl": "",
+        "name": "Course-Selling-App",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Course-Selling-App"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "React-dev",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/React-dev"
+    },
+    {
+        "description": "Chat Application",
+        "homepageUrl": "",
+        "name": "Chat-App",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Chat-App"
+    },
+    {
+        "description": "Basic Authentication is an HTTP protocol method for a user to provide a username and password in a request's Authorization header, which is sent as a base64-encoded string.",
+        "homepageUrl": "",
+        "name": "Auth-JWT",
+        "primaryLanguage": {
+            "name": "HTML"
+        },
+        "url": "https://github.com/SauravKumar81/Auth-JWT"
+    },
+    {
+        "description": "Multicode",
+        "homepageUrl": "",
+        "name": "CodeIDEx",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/CodeIDEx"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "Backend",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/Backend"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "SAP_Project4",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/SAP_Project4"
+    },
+    {
+        "description": "SAP-fiori-Todo",
+        "homepageUrl": "",
+        "name": "SAP-fiori-Todo",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/SAP-fiori-Todo"
+    },
+    {
+        "description": "",
+        "homepageUrl": "",
+        "name": "Sap",
+        "primaryLanguage": null,
+        "url": "https://github.com/SauravKumar81/Sap"
+    },
+    {
+        "description": "Portfolio Website",
+        "homepageUrl": "https://protfolio-zorokun.netlify.app/",
+        "name": "Portfolio",
+        "primaryLanguage": {
+            "name": "CSS"
+        },
+        "url": "https://github.com/SauravKumar81/Portfolio"
+    },
+    {
+        "description": "React Project",
+        "homepageUrl": "https://reactjs-protfolio.netlify.app/",
+        "name": "React-Portfolio",
+        "primaryLanguage": {
+            "name": "JavaScript"
+        },
+        "url": "https://github.com/SauravKumar81/React-Portfolio"
+    },
+    {
+        "description": "Two Good Co - Design",
+        "homepageUrl": "https://twogoodco12.netlify.app/",
+        "name": "Two-Good-Co.-",
+        "primaryLanguage": {
+            "name": "HTML"
+        },
+        "url": "https://github.com/SauravKumar81/Two-Good-Co.-"
+    }
+]
