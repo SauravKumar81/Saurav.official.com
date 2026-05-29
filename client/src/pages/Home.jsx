@@ -79,7 +79,7 @@ const Home = () => {
                     </a>
 
                     <a 
-                        href="https://drive.google.com/file/d/1McPAiiZ5_cwYjrfP1ht7MVz4jbu2HToz/view?usp=drive_link" 
+                        href="https://drive.google.com/file/d/1McPAiiZ5_cwYjrfP1ht7MVz4jbu2HToz/view?usp=sharing" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
