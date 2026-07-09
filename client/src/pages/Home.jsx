@@ -34,7 +34,7 @@ const Home = () => {
                     className="flex items-center gap-2 text-primary font-bold tracking-wider uppercase text-sm"
                 >
                     <Sparkles className="w-5 h-5" />
-                    <span>Next Gen Developer</span>
+                    <span>Creative Full Stack Developer</span>
                 </motion.div>
 
                 <motion.h1 
@@ -43,9 +43,9 @@ const Home = () => {
                     transition={{ delay: 0.2 }}
                     className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tight"
                 >
-                    The Next Era <br />
-                    of <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-nft-purple">Digital</span> <span className="text-white">+</span> <br />
-                    Experiences
+                    Building <br />
+                    the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-nft-purple">Full Spectrum</span> <br />
+                    of Web Apps
                 </motion.h1>
 
                 <motion.p 
@@ -54,8 +54,7 @@ const Home = () => {
                     transition={{ delay: 0.4 }}
                     className="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed"
                 >
-                    A curated portfolio blending high-end code, cutting-edge technology, and real user value. 
-                    Designed to stand on its own—today and years from now.
+                    Specializing in end-to-end web engineering, from fluid UI/UX layouts to secure database design and high-performance server-side logic.
                 </motion.p>
 
                 <motion.div 
@@ -79,7 +78,7 @@ const Home = () => {
                     </a>
 
                     <a 
-                        href="https://drive.google.com/file/d/1McPAiiZ5_cwYjrfP1ht7MVz4jbu2HToz/view?usp=sharing" 
+                        href="https://drive.google.com/file/d/1njYe-haX6FRbcE9XpXn9w2p-3jRzSD6p/view?usp=drive_link" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
