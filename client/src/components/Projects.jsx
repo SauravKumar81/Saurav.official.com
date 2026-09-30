@@ -53,16 +53,7 @@ const Projects = () => {
             image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?fit=crop&w=800&q=80',
             category: 'Fullstack'
         },
-        {
-            _id: '5',
-            title: 'AnonCare',
-            description: 'Anonymous Mental Health Chat application allowing users to connect and support each other securely.',
-            technologies: ['TypeScript', 'Node.js', 'Socket.io'],
-            githubUrl: 'https://github.com/SauravKumar81/AnonCare',
-            projectUrl: 'https://anon-care.vercel.app',
-            image: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?fit=crop&w=800&q=80',
-            category: 'Fullstack'
-        },
+        
 
         {
             _id: '6',
@@ -74,16 +65,7 @@ const Projects = () => {
             image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=800&q=80',
             category: 'Other'
         },
-        {
-            _id: '7',
-            title: 'Zomato Clone',
-            description: 'A responsive clone of the popular food delivery app Zomato.',
-            technologies: ['JavaScript', 'React'],
-            githubUrl: 'https://github.com/SauravKumar81/Zomato',
-            projectUrl: 'https://zomato-xi-jet.vercel.app',
-            image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?fit=crop&w=800&q=80',
-            category: 'UI'
-        },
+
         {
             _id: '8',
             title: 'Two Good Co. Design',
