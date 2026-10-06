@@ -53,7 +53,7 @@ const Projects = () => {
             image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?fit=crop&w=800&q=80',
             category: 'Fullstack'
         },
-        
+
 
         {
             _id: '6',
@@ -64,6 +64,16 @@ const Projects = () => {
             projectUrl: 'https://relto-eta.vercel.app/',
             image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=800&q=80',
             category: 'Other'
+        },
+        {
+            _id: '382837827376',
+            title: 'Hiroto_Sato',
+            description: 'An immersive futuristic 3D portfolio website showcasing personal identity, skills, projects, and creative expertise through cinematic visuals, smooth animations, interactive sections, and premium modern UI/UX inspired by award-winning WebGL and Awwwards experiences.',
+            technologies: ['TypeScript', 'Next.js'],
+            githubUrl: 'https://github.com/SauravKumar81/Hiroto_Sato/',
+            projectUrl: 'https://hiroto-sato.vercel.app/',
+            image: '',
+            category: 'UI'
         },
 
         {
@@ -122,70 +132,70 @@ const Projects = () => {
             "category": "UI",
             "visibility": "public"
         },
-         {
-    "_id": "1183590060",
-    "title": "x-wallet",
-    "description": "",
-    "technologies": [
-      "JavaScript"
-    ],
-    "githubUrl": "https://github.com/Dhiraj9283/x-wallet",
-    "projectUrl": "https://x-wallet-three.vercel.app/",
-    "image": "",
-    "category": "Other",
-    "visibility": "public"
-  },{
-    "_id": "1282876085",
-    "title": "norell",
-    "description": "Norell — Portfolio Website Template for Creative Studios and Agencies",
-    "technologies": [
-      "TypeScript"
-    ],
-    "githubUrl": "",
-    "projectUrl": "https://norell-beta.vercel.app",
-    "image": "",
-    "category":"UI",
-    "visibility": "private"
-  },
-   {
-    "_id": "1268035167",
-    "title": "Shaderloom",
-    "description": "A self-contained web tool that generates looping abstract shader art: liquid chrome, silk ribbons, soft gradient blooms, aura rings, light rays, halftone fields, data glyphs, reeded glass and pixel mosaics. Everything is rendered in real time with WebGL2 and every animation is a mathematically perfect loop.",
-    "technologies": [
-      "JavaScript"
-    ],
-    "githubUrl": "",
-    "projectUrl": "https://shaderloom.vercel.app",
-    "image": "",
-    "category": "Other",
-    "visibility": "private"
-  },
-   {
-    "_id": "1267359587",
-    "title": "Tillsite",
-    "description": "",
-    "technologies": [
-      "TypeScript"
-    ],
-    "githubUrl": "",
-    "projectUrl": "https://www.tillsite.com/",
-    "image": "",
-    "category": "Fullstack",
-    "visibility": "private"
-  },
-  {
-    "_id": "1270014474",
-    "title": "Hospital",
-    "description": "",
-    "technologies": [
-      "TypeScript"
-    ],
-    "githubUrl": "",
-    "projectUrl": "https://hospital-gules-seven.vercel.app",
-    "image": "",
-    "category": "Other",
-    "visibility": "private"
-  },
+        {
+            "_id": "1183590060",
+            "title": "x-wallet",
+            "description": "",
+            "technologies": [
+                "JavaScript"
+            ],
+            "githubUrl": "https://github.com/Dhiraj9283/x-wallet",
+            "projectUrl": "https://x-wallet-three.vercel.app/",
+            "image": "",
+            "category": "Other",
+            "visibility": "public"
+        }, {
+            "_id": "1282876085",
+            "title": "norell",
+            "description": "Norell — Portfolio Website Template for Creative Studios and Agencies",
+            "technologies": [
+                "TypeScript"
+            ],
+            "githubUrl": "",
+            "projectUrl": "https://norell-beta.vercel.app",
+            "image": "",
+            "category": "UI",
+            "visibility": "private"
+        },
+        {
+            "_id": "1268035167",
+            "title": "Shaderloom",
+            "description": "A self-contained web tool that generates looping abstract shader art: liquid chrome, silk ribbons, soft gradient blooms, aura rings, light rays, halftone fields, data glyphs, reeded glass and pixel mosaics. Everything is rendered in real time with WebGL2 and every animation is a mathematically perfect loop.",
+            "technologies": [
+                "JavaScript"
+            ],
+            "githubUrl": "",
+            "projectUrl": "https://shaderloom.vercel.app",
+            "image": "",
+            "category": "Other",
+            "visibility": "private"
+        },
+        {
+            "_id": "1267359587",
+            "title": "Tillsite",
+            "description": "",
+            "technologies": [
+                "TypeScript"
+            ],
+            "githubUrl": "",
+            "projectUrl": "https://www.tillsite.com/",
+            "image": "",
+            "category": "Fullstack",
+            "visibility": "private"
+        },
+        {
+            "_id": "1270014474",
+            "title": "Hospital",
+            "description": "",
+            "technologies": [
+                "TypeScript"
+            ],
+            "githubUrl": "",
+            "projectUrl": "https://hospital-gules-seven.vercel.app",
+            "image": "",
+            "category": "Other",
+            "visibility": "private"
+        },
     ];
 
     const handleCategoryChange = (cat) => {
@@ -266,9 +276,8 @@ const Projects = () => {
                                             onError={(e) => {
                                                 e.currentTarget.src = DEFAULT_IMAGE;
                                             }}
-                                            className={`w-full h-full transform group-hover:scale-110 transition-transform duration-700 ease-out ${
-                                                projectImgSrc === DEFAULT_IMAGE ? 'object-contain p-8 opacity-80' : 'object-cover'
-                                            }`}
+                                            className={`w-full h-full transform group-hover:scale-110 transition-transform duration-700 ease-out ${projectImgSrc === DEFAULT_IMAGE ? 'object-contain p-8 opacity-80' : 'object-cover'
+                                                }`}
                                         />
                                         <div className="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm flex items-center justify-center gap-4">
                                             {!isPrivate && (
@@ -284,40 +293,40 @@ const Projects = () => {
                                         </div>
                                     </div>
 
-                                <div className="p-6 relative flex-1 flex flex-col justify-between">
-                                    <div className="absolute -top-6 right-6 bg-primary w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-primary/40 transform group-hover:-translate-y-2 transition-transform duration-300">
-                                        <ArrowUpRight className="text-white w-6 h-6" />
-                                    </div>
+                                    <div className="p-6 relative flex-1 flex flex-col justify-between">
+                                        <div className="absolute -top-6 right-6 bg-primary w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-primary/40 transform group-hover:-translate-y-2 transition-transform duration-300">
+                                            <ArrowUpRight className="text-white w-6 h-6" />
+                                        </div>
 
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/20 text-neon-purple border border-primary/30">
-                                                {project.category}
-                                            </span>
-                                            {isPrivate && (
-                                                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-gray-400 border border-white/10">
-                                                    Private Repo
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/20 text-neon-purple border border-primary/30">
+                                                    {project.category}
+                                                </span>
+                                                {isPrivate && (
+                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-gray-400 border border-white/10">
+                                                        Private Repo
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-neon-green transition-colors">{project.title}</h3>
+                                            <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{project.description}</p>
+                                        </div>
+
+                                        <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">
+                                            {(project.technologies || []).slice(0, 3).map((tech, idx) => (
+                                                <span key={idx} className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                            {(project.technologies || []).length > 3 && (
+                                                <span className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
+                                                    +{(project.technologies || []).length - 3}
                                                 </span>
                                             )}
                                         </div>
-                                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-neon-green transition-colors">{project.title}</h3>
-                                        <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{project.description}</p>
                                     </div>
-
-                                    <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">
-                                        {(project.technologies || []).slice(0, 3).map((tech, idx) => (
-                                            <span key={idx} className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                        {(project.technologies || []).length > 3 && (
-                                            <span className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-full border border-white/5">
-                                                +{(project.technologies || []).length - 3}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
                             );
                         })}
                     </AnimatePresence>
