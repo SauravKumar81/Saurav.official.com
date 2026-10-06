@@ -20,7 +20,7 @@ const Projects = () => {
             technologies: ['TypeScript', 'React', 'Node.js'],
             githubUrl: 'https://github.com/SauravKumar81/CiviX',
             projectUrl: 'https://civi-x.vercel.app',
-            image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?fit=crop&w=800&q=80',
+            image: '',
             category: 'Fullstack'
         },
         {
@@ -33,16 +33,16 @@ const Projects = () => {
             image: '/images/ps5_controller.png',
             category: 'UI'
         },
-        {
-            _id: '3',
-            title: 'Intenview Prep',
-            description: 'A platform aimed at helping users prepare for technical interviews with curated questions.',
-            technologies: ['TypeScript', 'Next.js'],
-            githubUrl: 'https://github.com/SauravKumar81/intenview_prep',
-            projectUrl: 'https://intenview-prep.vercel.app',
-            image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?fit=crop&w=800&q=80',
-            category: 'Fullstack'
-        },
+        // {
+        //     _id: '3',
+        //     title: 'Intenview Prep',
+        //     description: 'A platform aimed at helping users prepare for technical interviews with curated questions.',
+        //     technologies: ['TypeScript', 'Next.js'],
+        //     githubUrl: 'https://github.com/SauravKumar81/intenview_prep',
+        //     projectUrl: 'https://intenview-prep.vercel.app',
+        //     image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?fit=crop&w=800&q=80',
+        //     category: 'Fullstack'
+        // },
         {
             _id: '4',
             title: 'Wallet',
