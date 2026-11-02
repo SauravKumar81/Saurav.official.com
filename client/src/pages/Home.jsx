@@ -78,7 +78,7 @@ const Home = () => {
                     </a>
 
                     <a 
-                        href="https://drive.google.com/file/d/1njYe-haX6FRbcE9XpXn9w2p-3jRzSD6p/view?usp=sharing" 
+                        href="https://drive.google.com/file/d/1VjG1G4KrJWC-bOoilBxSmipEZBwdwbc2/view?usp=sharing" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
